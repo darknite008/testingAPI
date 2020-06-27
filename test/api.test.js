@@ -1,12 +1,54 @@
 const { expect } = require("chai");
-const db = require("../model/api");
+//const db = require("../model/api");
 const { response } = require("../app");
-const { Package, Category } = db.models;
+//const { Package, Category } = db.models;
 const app = require("supertest")(require("../app"));
+
+const Sequelize = require("sequelize");
+const { STRING, DECIMAL } = Sequelize;
+const conn = require("../model/db");
+const Package = require("../model/package");
+const Category = require("../model/category");
+
+Package.belongsTo(Category);
+
+const syncAndSeed = async () => {
+  await conn.sync({ force: true });
+
+  const categories = [
+    { name: "Trek" },
+    { name: "Climbing" },
+    { name: "Tours" },
+  ];
+  const [catTrek, catClimbing, catTours] = await Promise.all(
+    categories.map((category) => Category.create(category))
+  );
+
+  const packages = [
+    { name: "Goa", categoryId: catTrek.id, suggestedPrice: 11 },
+    { name: "Mustang", categoryId: catClimbing.id, suggestedPrice: 10 },
+    { name: "Gosian", categoryId: catTours.id, suggestedPrice: 9 },
+  ];
+  const [Goa, Mustang, Gosian] = await Promise.all(
+    packages.map((package) => Package.create(package))
+  );
+  return {
+    packages: {
+      Goa,
+      Mustang,
+      Gosian,
+    },
+    categories: {
+      catTrek,
+      catClimbing,
+      catTours,
+    },
+  };
+};
 
 describe("Travel and Tourism", () => {
   let seed;
-  beforeEach(async () => (seed = await db.syncAndSeed()));
+  beforeEach(async () => (seed = await syncAndSeed()));
   //Data Layer
   describe("Data Layer", () => {
     it("Should Add Packages", async () => {
@@ -41,23 +83,6 @@ describe("Travel and Tourism", () => {
         expect(package.categoryId).to.equal(null);
       });
     });
-
-    //Package isExpensive
-    // describe("Package isExpensive", () => {
-    //   it("Package higher than 10 dollars is expensive"),
-    //     () => {
-    //       expect(Package.build({ suggestedPrice: 11 }).isExpensive).to.equal(
-    //         true
-    //       );
-    //     };
-
-    //   it("Package less than 10 dollars is not expensive"),
-    //     () => {
-    //       expect(Package.build({ suggestedPrice: 10 }).isExpensive).to.equal(
-    //         false
-    //       );
-    //     };
-    // });
   });
 
   //Welcome package

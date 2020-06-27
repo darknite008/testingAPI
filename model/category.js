@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const { STRING, DECIMAL } = Sequelize;
+const { STRING } = Sequelize;
 const conn = require("../model/db");
 
 const Category = conn.define("category", {

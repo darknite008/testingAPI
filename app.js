@@ -1,8 +1,10 @@
 const express = require("express");
 const app = express();
-const db = require("./model/api");
+//const db = require("./test/api.test.js");
+const Package = require("./model/package");
+// const Category = require("../model/category");
 
-const { Package, Category } = db.models;
+//const { Package, Category } = db.models;
 module.exports = app;
 app.use(express.json());
 app.get("/api", (req, res) => {
