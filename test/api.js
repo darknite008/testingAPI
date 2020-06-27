@@ -4,7 +4,7 @@ const { STRING, UUID, UUIDV4, DECIMAL, VIRTUAL } = Sequelize;
 
 const conn = new Sequelize(
   process.env.DATABASE_URL ||
-    "postgresql://postgres:password@localhost:5432/testing",
+    "postgresql://postgres:postgres@localhost:5432/testing",
   { logging: false }
 );
 const Package = conn.define(
