@@ -10,11 +10,6 @@ const conn = new Sequelize(
 const Package = conn.define(
   "package",
   {
-    //   id: {
-    //     primaryKey: true,
-    //     type: UUID,
-    //     defaulValue: UUIDV4,
-    //   },
     name: {
       type: STRING,
       allowNull: false,
