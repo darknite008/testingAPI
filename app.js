@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const db = require("./test/api");
+const db = require("./model/api");
 
 const { Package, Category } = db.models;
 module.exports = app;

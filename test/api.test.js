@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const db = require("./api");
+const db = require("../model/api");
 const { response } = require("../app");
 const { Package, Category } = db.models;
 const app = require("supertest")(require("../app"));

@@ -1,6 +1,5 @@
 const Sequelize = require("sequelize");
-//const { STRING, UUID, UUIDV4 } = require("sequelize");
-const { STRING, UUID, UUIDV4, DECIMAL, VIRTUAL } = Sequelize;
+const { STRING, DECIMAL } = Sequelize;
 
 const conn = new Sequelize(
   process.env.DATABASE_URL ||
@@ -19,12 +18,6 @@ const Package = conn.define(
       type: DECIMAL,
       defaulValue: 5,
     },
-    //   isExpensive: {
-    //     type: VIRTUAL,
-    //     get: function () {
-    //       return this.suggestedPrice > 10 ? true : false;
-    //     },
-    //   },
   },
   {
     hooks: {
@@ -39,11 +32,6 @@ const Package = conn.define(
 );
 
 const Category = conn.define("category", {
-  //   id: {
-  //     primaryKey: true,
-  //     type: UUID,
-  //     defaulValue: UUIDV4,
-  //   },
   name: STRING,
 });
 
