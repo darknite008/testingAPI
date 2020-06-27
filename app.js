@@ -1,11 +1,7 @@
 const express = require("express");
 const app = express();
-//const db = require("./test/api.test.js");
 const Package = require("./model/package");
-// const Category = require("../model/category");
 
-//const { Package, Category } = db.models;
-module.exports = app;
 app.use(express.json());
 app.get("/api", (req, res) => {
   res.json({ message: "Welcome to Travel Application." });
@@ -34,3 +30,4 @@ app.delete("/api/packages/:id", (req, res, next) => {
     .then(() => res.sendStatus(204))
     .catch(next);
 });
+module.exports = app;
